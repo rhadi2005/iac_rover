@@ -78,30 +78,26 @@ RUN apt-get update && \
     unzip \
     vim \
     wget \
-    zip 
-
+    zip && \
     #
     # Create USERNAME
     #
-RUN echo "Creating ${USERNAME} user..." && \
+    echo "Creating ${USERNAME} user..." && \
     groupadd docker && \
     useradd --uid $USER_UID -m -G docker ${USERNAME}  && \
     #
     # Set the locale
-    locale-gen en_US.UTF-8 
-
-
+    locale-gen en_US.UTF-8 && \
     #
     # ############### APT Repositories ###################
     #
     # Add Microsoft key
     #
-RUN curl -sSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/microsoft.gpg 
-
+    curl -sSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/microsoft.gpg && \
     #
     # Add Microsoft repository
     #
-RUN sudo apt-add-repository https://packages.microsoft.com/ubuntu/22.04/prod && \
+    sudo apt-add-repository https://packages.microsoft.com/ubuntu/22.04/prod && \
     #
     # Add Docker repository
     #
@@ -114,24 +110,20 @@ RUN sudo apt-add-repository https://packages.microsoft.com/ubuntu/22.04/prod && 
     echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list && \
     #
     # Github shell
-    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg 
-
-
-RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null 
-
-RUN apt-get update && \
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null &&\
+    apt-get update && \
     apt-get install -y --no-install-recommends \
     docker-ce-cli \
     gh \
-    kubectl 
-
+    kubectl && \
     #
     # ################# Install binary clients ###################
     #
     #
     # Install Docker Compose - required to rebuild the rover and dynamic terminal in VSCode
     #
-RUN echo "Installing docker compose ${versionDockerCompose}..." && \
+    echo "Installing docker compose ${versionDockerCompose}..." && \
     mkdir -p /usr/libexec/docker/cli-plugins/ && \
     if [ ${TARGETARCH} == "amd64" ]; then \
         curl -L -o /usr/libexec/docker/cli-plugins/docker-compose https://github.com/docker/compose/releases/download/v${versionDockerCompose}/docker-compose-${TARGETOS}-x86_64 ; \

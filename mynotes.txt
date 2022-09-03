@@ -1,0 +1,24 @@
+#https://github.com/docker/buildx/issues/132
+#issue with docker buildx
+
+sudo apt  install jq
+
+LATEST=$(wget -qO- "https://api.github.com/repos/docker/buildx/releases/latest" | jq -r .name)
+wget https://github.com/docker/buildx/releases/download/$LATEST/buildx-$LATEST.linux-amd64
+chmod a+x buildx-$LATEST.linux-amd64
+mkdir -p ~/.docker/cli-plugins
+mv buildx-$LATEST.linux-amd64 ~/.docker/cli-plugins/docker-buildx
+
+
+#to check disk usages
+sudo du -sh ./* | sort -h
+
+
+# docker overlay2
+# https://forums.docker.com/t/some-way-to-clean-up-identify-contents-of-var-lib-docker-overlay/30604/20
+
+du -sh /var/lib/docker/overlay2
+docker system prune -a
+docker builder prune --all
+sudo gitlab-ctl registry-garbage-collect
+
