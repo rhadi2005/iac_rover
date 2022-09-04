@@ -57,7 +57,8 @@ function build_base_rover_image {
 
     case "${strategy}" in
         "github")
-            registry="aztfmod/"
+            #registry="aztfmod/" 
+            registry="rhadi2005/"
             tag=${versionTerraform}-${tag_date_release}
             rover_base="${registry}rover"
             rover="${rover_base}:${tag}"
@@ -71,7 +72,8 @@ function build_base_rover_image {
             export tag_strategy="alpha-"
             ;;
         "dev")
-            registry="aztfmod/"
+            #registry="aztfmod/"
+            registry="rhadi2005/"
             tag=${versionTerraform}-${tag_date_preview}
             rover_base="${registry}rover-preview"
             export rover="${rover_base}:${tag}"
@@ -114,6 +116,12 @@ function build_base_rover_image {
             ;;
         *)
             echo "Building rover image and pushing to Docker Hub"
+            echo "DEBUG registry=${registry}"
+            echo "DEBUG versionRover=${rover_base}:${tag}"
+            echo "DEBUG versionTerraform=${versionTerraform}"
+            echo "DEBUG tag=${rover}" 
+
+
             registry="${registry}" \
             versionRover="${rover_base}:${tag}" \
             versionTerraform=${versionTerraform} \
@@ -225,7 +233,8 @@ else
     done <./.env.terraform
 
     while read versionTerraform; do
-        build_rover_agents "${rover}" "${tag}" "${registry}"
+        echo "DEBUG build_rover_agents (github, tfc, ...) disabled"
+        #build_rover_agents "${rover}" "${tag}" "${registry}"
     done <./.env.terraform
 fi
 

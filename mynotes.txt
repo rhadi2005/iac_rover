@@ -20,5 +20,9 @@ sudo du -sh ./* | sort -h
 du -sh /var/lib/docker/overlay2
 docker system prune -a
 docker builder prune --all
+
+docker volume ls
+docker volume prune
+
 sudo gitlab-ctl registry-garbage-collect
 
