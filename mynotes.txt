@@ -1,6 +1,8 @@
 #https://github.com/docker/buildx/issues/132
 #issue with docker buildx
 
+#ok too 
+
 sudo apt  install jq
 
 LATEST=$(wget -qO- "https://api.github.com/repos/docker/buildx/releases/latest" | jq -r .name)
@@ -25,4 +27,28 @@ docker volume ls
 docker volume prune
 
 sudo gitlab-ctl registry-garbage-collect
+
+
+
+#https://stackoverflow.com/questions/6359820/how-to-set-commands-output-as-a-variable-in-a-batch-file
+
+FOR /F "tokens=*" %%g IN ('your command') do (SET VAR=%%g)
+
+FOR /F "tokens=* USEBACKQ" %%F IN (`command`) DO (
+SET var=%%F
+)
+ECHO %var%
+
+#Now if your output will contain multiple lines, you can do this
+SETLOCAL ENABLEDELAYEDEXPANSION
+SET count=1
+FOR /F "tokens=* USEBACKQ" %%F IN (`command`) DO (
+  SET var!count!=%%F
+  SET /a count=!count!+1
+)
+ECHO %var1%
+ECHO %var2%
+ECHO %var3%
+ENDLOCAL
+
 

@@ -5,7 +5,7 @@ FROM --platform=${TARGETPLATFORM} ubuntu:22.04 as base
 
 SHELL ["/bin/bash", "-c"]
 
-ENV TZ=Europe/Paris
+#ENV TZ=Europe/Paris
 
 # Arguments set during docker-compose build -b --build from .env file
 
@@ -22,8 +22,9 @@ ARG versionVault \
     TARGETOS
 
 ARG USERNAME=vscode
-ARG USER_UID=1000
-ARG USER_GID=${USER_UID}
+ARG GRPNAME=vscode
+ARG USER_UID=1002 
+ARG USER_GID=1003 
 
 ENV SSH_PASSWD=${SSH_PASSWD} \
     USERNAME=${USERNAME} \
@@ -51,7 +52,7 @@ WORKDIR /tf/rover
 COPY ./scripts/.kubectl_aliases .
 COPY ./scripts/zsh-autosuggestions.zsh .
 
-RUN bash
+#RUN bash
 
     # installation common tools
 RUN apt-get update && \
@@ -94,7 +95,8 @@ RUN apt-get install -y \
     #
 RUN echo "Creating ${USERNAME} user..." && \
     groupadd docker && \
-    useradd --uid $USER_UID -m -G docker ${USERNAME}  && \
+    groupadd -g $USER_GID ${GRPNAME} && \
+    useradd -m -g ${GRPNAME} -G docker,sudo --uid $USER_UID ${USERNAME}  && \
     #
     # Set the locale
     locale-gen en_US.UTF-8 

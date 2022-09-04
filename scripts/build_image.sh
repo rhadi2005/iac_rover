@@ -33,8 +33,13 @@ trap 'error ${LINENO}' ERR 1 2 3 6
 
 params=$@
 build_date=date
+
+#tag_date_preview=$(${build_date} +"%g%m.%d%H%M")
 tag_date_preview=$(${build_date} +"%g%m.%d%H%M")
-tag_date_release=$(${build_date} +"%g%m.%d%H")
+
+#tag_date_release=$(${build_date} +"%g%m.%d%H")
+tag_date_release=$(${build_date} +"%g%m")
+
 export strategy=${1}
 
 export DOCKER_CLIENT_TIMEOUT=600
@@ -75,7 +80,7 @@ function build_base_rover_image {
             #registry="aztfmod/"
             registry="rhadi2005/"
             tag=${versionTerraform}-${tag_date_preview}
-            rover_base="${registry}rover-preview"
+            rover_base="${registry}rover-dev"
             export rover="${rover_base}:${tag}"
             tag_strategy="preview-"
             ;;
@@ -229,11 +234,12 @@ if [ "$strategy" == "ci" ]; then
     build_base_rover_image "1.0.0" ${strategy}
 else
     while read versionTerraform; do
+        echo "DEBUG build_base_rover_image ${versionTerraform} ${strategy}" 
         build_base_rover_image ${versionTerraform} ${strategy}
     done <./.env.terraform
 
     while read versionTerraform; do
-        echo "DEBUG build_rover_agents (github, tfc, ...) disabled"
+        echo "DEBUG build_rover_agents ${versionTerraform} (github, tfc, ...) disabled"
         #build_rover_agents "${rover}" "${tag}" "${registry}"
     done <./.env.terraform
 fi
