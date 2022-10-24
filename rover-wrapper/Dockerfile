@@ -1,5 +1,6 @@
 
-FROM aztfmod/rover:1.0.7-2109.2410  
+#FROM aztfmod/rover:1.0.7-2109.2410  
+FROM vcflabmgmtcore.azurecr.io/rover:1.0.7-2109.2410 
 
 ARG USERNAME=vscode
 ARG GRPNAME=vscode

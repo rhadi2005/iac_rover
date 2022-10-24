@@ -1,4 +1,15 @@
 
+# To download rover-vcf (vcflabmgmtcore.azurecr.io/rover:1.0.7-2109.2410) 
+# =======================================================================
+# az login
+# az account set --subscription 'SUB-AZ-VCF-ENV-LAB-MGMT-01'
+# az acr login --name vcflabmgmtcore
+#
+# docker run -it vcflabmgmtcore.azurecr.io/rover:1.0.7-2109.2410
+
+
+# to build rover-vcf for VM FE 
+# ============================
 
 docker build -t rhadi2005/rover-vcf:1.0.7-2109.2410 . 
 
