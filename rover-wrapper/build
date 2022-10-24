@@ -1,0 +1,4 @@
+
+
+docker build -t rhadi2005/rover-vcf:1.0.7-2109.2410 . 
+

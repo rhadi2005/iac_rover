@@ -1,0 +1,9 @@
+
+#docker pull rhadi2005/rover:1.2.5-2209  
+docker run -it --mount type=bind,source="$(pwd)",target=/tf/caf rhadi2005/rover:1.2.5-2209 
+
+#docker run -it --mount type=bind,source="$(pwd)",target=/tf/caf aztfmod/rover:1.2.5-2208.0208
+
+#docker run -it --user root docker pull rhadi2005/rover:1.2.5-2209
+
+ 
