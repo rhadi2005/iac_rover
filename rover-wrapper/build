@@ -13,3 +13,8 @@
 
 docker build -t rhadi2005/rover-vcf:1.0.7-2109.2410 . 
 
+
+# to upload image to dockerhub
+#docker login => circlebi or rhadi2005
+#docker tag local-image:tagname new-repo:tagname
+#docker push new-repo:tagname

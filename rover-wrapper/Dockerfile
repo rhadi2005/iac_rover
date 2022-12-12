@@ -30,6 +30,10 @@ RUN chown -R ${USER_UID}:${USER_GID} /home/${USERNAME} /tf/rover /tf/caf /tf/log
     echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} && \
     chmod 0440 /etc/sudoers.d/${USERNAME} 
 
+COPY rover/rover.sh /tf/rover
+COPY rover/functions.sh /tf/rover
+COPY rover/tfstate_azurerm.sh /tf/rover
+
 USER ${USERNAME}
 WORKDIR /tf/caf
 
