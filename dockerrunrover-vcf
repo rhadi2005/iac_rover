@@ -1,8 +1,9 @@
 #download and starting rover container
 #mount current pwd (rover iac project root) to /tf/caf within the rover container
 
+docker run -it --mount type=bind,source="$(pwd)",target=/tf/caf rhadi2005/rover-vcf:1.0.7-2109.2410 
+
 
 #docker run -it --mount type=bind,source="$(pwd)",target=/tf/caf rhadi2005/rover:1.2.5-2209
 
-docker run -it --mount type=bind,source="$(pwd)",target=/tf/caf rhadi2005/rover-vcf:1.0.7-2109.2410 
- 
+
