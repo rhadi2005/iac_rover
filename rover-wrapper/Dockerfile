@@ -17,6 +17,9 @@ ARG USER_GID=1003
 #host vm FE:
 #uid=1002(cloud) gid=1003(cloud) 
 
+ENV CAF_LZ_PATH="/tf/caf/.solution/caf/caf_solution"
+
+
 USER root
 
 RUN groupmod -g ${USER_GID} ${GRPNAME=vscode} && \
